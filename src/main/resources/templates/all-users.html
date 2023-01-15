@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Users</title>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
+        body {
+            background: #6ED0F6;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            margin-left: auto;
+            margin-right: auto;
+            width: 500px
+        }
+        button {
+            background: #079BCF;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            height: 30px;
+            width: 100px;
+            margin-bottom: 5px;
+            overflow: hidden;
+            transition: all .3s cubic-bezier(.6,0,.4,1);}
+
+        .logout {
+            /*margin: -375px -112px;*/
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+        }
+        table {
+            margin: auto;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <form class="logout" th:action="@{/logout}" method="post">
+        <button class="logout" type="submit">Logout</button>
+    </form>
+
+</head>
+<body>
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div>
+        <h2>Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Age</th>
+                <th>Email</th>
+<!--                <th>Password</th>-->
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
+                <td><a th:href="@{/user/{i}(i=${user.getId()})}" th:text="${user.getUsername}"></a></td>
+<!--                <td th:text="${user.password}"></td>-->
+                <td th:each ="role : ${user.getRoles()}" th:text=" ${role.name}"></td>
+                <td class="no-border">
+                    <form th:method="get" th:action="@{/admin/{i}/edit(i=${user.getId()})}">
+                        <button type="submit" value="Edit">Edit</button>
+                    </form>
+                </td>
+                <td class="no-border">
+                    <form th:method="delete" th:action="@{/admin}">
+                        <input type="hidden" name="id" th:value="${user.getId()}">
+                        <button type="submit" value="Delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <form th:method="get" th:action="@{/admin/newUser}">
+        <button type="submit" value="Add">Create</button>
+    </form>
+</div>
+</body>
+</html>

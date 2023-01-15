@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
+        body {
+            background: #6ED0F6;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        form {
+            width: 450px;
+            height: 600px;
+            margin: -305px -225px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            display: block;
+        }
+        input[type=text] {
+            background: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            font-family: 'Raleway', sans-serif;
+            height: 50px;
+            width: 99.5%;
+            margin-bottom: 10px;
+            opacity: 1;
+            text-indent: 20px;
+            transition: all .2s ease-in-out;
+            padding: 1px 2px;
+        }
+        input {
+            writing-mode: horizontal-tb !important;
+            text-rendering: auto;
+            letter-spacing: normal;
+            word-spacing: normal;
+            line-height: normal;
+            text-transform: none;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            appearance: auto;
+            -webkit-rtl-ordering: logical;
+            cursor: text;
+            margin: 0em;
+        }
+        button {
+            background: #079BCF;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 27px;
+            height: 45px;
+            width: 100%;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all .3s cubic-bezier(.6,0,.4,1);}
+        .logout {
+            margin: -345px -112px;
+            width: 100px;
+            height: 30px;
+            font-size: 16px;
+        }
+        select {
+            height: 36px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <form class="logout" th:action="@{/logout}" method="post">
+        <button class="logout" type="submit">Logout</button>
+    </form>
+    <title>Update user</title>
+</head>
+<body>
+<form th:method="patch" th:action="@{/admin}" th:object="${user}">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+
+
+    </br>
+    </br>
+    <label for="firstName">FirstName: </label>
+    <input type="text" th:field="*{firstName}" id="firstName"/>
+    <label for="lastName">LastName: </label>
+    <input type="text" th:field="*{lastName}" id="lastName"/>
+    <label for="age">Age: </label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <label for="username">Email: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+     <label for="password">Password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+
+    <label>Roles:
+        <select size="1" multiple name="listRoles" required="required">
+            <option selected="selected" value="2">USER</option>
+            <option value="1">ADMIN</option>
+        </select>
+    </label>
+    </br>
+    </br>
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>

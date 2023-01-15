@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Raleway:700,800);
+        body {
+            background: #6ED0F6;
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+    <title>Error</title>
+
+</head>
+<body>
+<h3>Какая-то ошибка</h3>
+<th:block th:each="m : ${messages}">
+    <p th:text="${m}"></p>
+</th:block>
+</body>
+</html>
